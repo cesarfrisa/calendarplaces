@@ -1,43 +1,22 @@
 <?php 
-
-
-
 // Define application environment
 defined('APPLICATION_ENV') ||
 	define('APPLICATION_ENV',
 			(getenv('APPLICATION_ENV') ?
 			 getenv('APPLICATION_ENV') : 'production'));
 
-require_once ("../model/generalModel.php");
-require_once ("../model/filesModel.php");
-require_once ("../model/users/file/users.php");
-
-$configFile="../configs/config.ini";
-$config=readConfig($configFile, "production");
-
-
-$request=getRequest();
-
-$layoutparams=array(
-		"request"=>$request,
-		"config"=>$config);
-
-switch ($request['controller'])
-{
-	case 'users':
-		echo renderLayout('login', $request['controller'],$layoutparams);
-	break;
 	
-	case 'index':
-		echo renderLayout('frontend', $request['controller'],$layoutparams);				
-	break;
+$ruta = $_SERVER['DOCUMENT_ROOT']."/../application/";
+set_include_path(get_include_path() . PATH_SEPARATOR . $ruta);
+
 	
-	case 'backend':
-		echo renderLayout('backend', $request['controller'],$layoutparams);
-		break;
-	default:
-	break;
-}
+	
+$configFile="../application/configs/config.ini";
+require_once ("../application/autoload.php");
+
+$bootstrap = new Bootstrap($configFile);
+$bootstrap->run();
+
 
 
 
