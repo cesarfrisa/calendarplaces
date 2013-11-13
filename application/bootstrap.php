@@ -5,42 +5,67 @@ class Bootstrap
 	protected $request;
 	protected $layoutparams;
 	protected $controller;
+	protected $sessionId;
+	protected $config;
 	
 	public function __construct($configFile)
 	{
 		require_once ("../application/model/generalModel.php");
-		$config=readConfig($configFile, APPLICATION_ENV);
-		$this->request=getRequest();
+		$this->config=readConfig($configFile, APPLICATION_ENV);
+		$this->configApp();
+	}
+	
+	public function configApp()
+	{
+		$this->_request();
+		$this->_session();
+		$this->_layoutparams();
+		//$this->routes();
+		//$this->db();		
+	}
+	
+	protected function _layoutparams()
+	{
 		$this->layoutparams=array(
-								"request"=>$this->request,
-								"config"=>$config);
+				"request"=>$this->request,
+				"config"=>$this->config);		
 	}
 	
 	public function run()
 	{
-		//$this->session();
-		//$this->routes();
-		//$this->db();
 		$this->dispatch();
 	}
 	
+	protected function _request()
+	{
+		$this->request=getRequest();
+	}
+	
+	protected function _session()
+	{
+		session_start();
+		$this->sessionId=session_id();
+		return $this->sessionId;
+	}
 	
 	public function dispatch()
 	{
-		$controllerName= "Controllers_".ucfirst($this->request['controller']);
-		$actionName=$this->request['action']."Action";
+		$controllerName = "Controllers_".ucfirst($this->request['controller']);
+		$actionName = $this->request['action']."Action";
 		
 		$this->controller = new $controllerName($this->layoutparams['request'],
 										  $this->layoutparams['config']);
-		$this->controller->$actionName();
+		$content=$this->controller->$actionName();
+		
 	}
 	
-	public function __destruct()
-	{
-		echo renderLayout($this->controller->getLayout(), 
-						  $this->request['controller'],
-						  $this->layoutparams);
-	}
+// 	public function __destruct()
+// 	{
+// 		echo $this->controller->getLayout();
+// 		 renderLayout($this->controller->getLayout(), 
+// 						  $this->request['controller'],
+// 						  $this->layoutparams);
+// 	}
 }
 
 

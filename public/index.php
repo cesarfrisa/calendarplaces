@@ -18,10 +18,3 @@ $bootstrap = new Bootstrap($configFile);
 $bootstrap->run();
 
 
-
-
-
-
-
-
-
