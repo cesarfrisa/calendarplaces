@@ -41,8 +41,13 @@ function getView($action = 'index', $controller = 'index', $viewParams, $config)
 	if(isset($viewParams['data']))
 		$data=$viewParams['data'];
 	//include_once ("../views/radioForm.php");
+<<<<<<< HEAD
 	include_once($config['views']."/".
 				$controller."/".$action.".phtml");
+=======
+	echo $config['views']."/";
+	include_once($config['views']."/".$controller."/".$action.".phtml");
+>>>>>>> b6e99c6ad38db4a1c14dfcc807535928b1741326
 	$content=ob_get_contents();
 	ob_end_clean();
 	return $content;

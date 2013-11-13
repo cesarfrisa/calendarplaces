@@ -13,6 +13,7 @@ class Bootstrap
 		require_once ("../application/model/generalModel.php");
 		$this->config=readConfig($configFile, APPLICATION_ENV);
 		$this->configApp();
+<<<<<<< HEAD
 	}
 	
 	public function configApp()
@@ -29,24 +30,54 @@ class Bootstrap
 		$this->layoutparams=array(
 				"request"=>$this->request,
 				"config"=>$this->config);		
+=======
+>>>>>>> b6e99c6ad38db4a1c14dfcc807535928b1741326
+	}
+	
+	public function configApp()
+	{
+<<<<<<< HEAD
+=======
+		$this->_request();
+		$this->_session();
+		$this->_layoutparams();
+		//$this->routes();
+		//$this->db();
+	}
+	
+	protected function _layoutparams()
+	{
+		$this->layoutparams=array(
+				"request"=>$this->request,
+				"config"=>$this->config);
 	}
 	
 	public function run()
-	{
+	{		
+>>>>>>> b6e99c6ad38db4a1c14dfcc807535928b1741326
 		$this->dispatch();
 	}
 	
 	protected function _request()
 	{
 		$this->request=getRequest();
+<<<<<<< HEAD
 	}
+=======
+	}	
+>>>>>>> b6e99c6ad38db4a1c14dfcc807535928b1741326
 	
 	protected function _session()
 	{
 		session_start();
 		$this->sessionId=session_id();
+<<<<<<< HEAD
 		return $this->sessionId;
 	}
+=======
+		return $this->sessionId;	
+	} 
+>>>>>>> b6e99c6ad38db4a1c14dfcc807535928b1741326
 	
 	public function dispatch()
 	{
