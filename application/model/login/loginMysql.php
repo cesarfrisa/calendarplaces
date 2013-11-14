@@ -5,14 +5,22 @@ class Model_Login_LoginMysql extends Abstract_Mysql
 	
 	public function getCredentials($identity, $credentials)
 	{
+		$users=array();
 		$sql="SELECT * FROM users 
-				WHERE id_user='".$identity."' AND
+				WHERE email='".$identity."' AND
 					  password='".$credentials."'";
-		echo $sql;
 		
+		$result=mysqli_query($this->linkread,$sql);
+		if($result)
+		while($row=mysqli_fetch_assoc($result))
+		{
+			$users[]=$row;
+		}
 		
-		
-		$this->linkread;		
+		if(count($users)===1)
+			return true;
+		else
+			return false;
 	}
 	
 	public function singup()
