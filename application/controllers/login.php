@@ -22,6 +22,9 @@ class Controllers_Login extends Abstract_Controller
 				exit;
 			}	
 			
+			
+			
+			
 			$user = new Model_Login();
 			if ($user->singin($_POST['email'], $_POST['password']))
 			{
@@ -48,6 +51,7 @@ class Controllers_Login extends Abstract_Controller
 		
 	}
 	
+	 
 	
 	
 }

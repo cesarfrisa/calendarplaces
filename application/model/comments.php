@@ -3,7 +3,7 @@
 
 class Model_Comments
 {
-	protected $model = 'Login';
+	protected $model = 'Comments';
 	protected $adapter;
 
 	public function __construct()
@@ -12,23 +12,25 @@ class Model_Comments
 		$this->adapter = new $adaptername();	
 	}
 	
+//ejemplo de Model_login
 // 	public function singin($identity, $credentials)
 // 	{
 // 		return $this->adapter->getCredentials($identity, $credentials);
 // 	}
-	
-// 	public function singup()
-// 	{
-		
-// 	}
 
-	public function read()
+	public function selectOne()
 	{
 		include_once('comments.php');
 		$comments = select($id,$config);
 		return $comments;		
 	}
 
+	public function selectAll($config)
+	{
+		include_once('comments.php');
+		$comments = selectAll($config);
+		return $comments;
+	}	
 
 	public function update($comment, $id, $config)
 	{
@@ -36,15 +38,14 @@ class Model_Comments
 		$comments = updateComment($id, $comment, $config);
 		return $comments;
 	}
+	
+	// public function insert($id, $config)
+	// public function delete($id, $config)
+	
+	
 
-	// function select($id, $config)
-	// function delete($id, $config)
 	
 	
-	function readUsers($config)
-	{	
-		include_once('comments.php');
-		$comments = selectAll($config);
-		return $comments;
-	}
+	
+	
 }
